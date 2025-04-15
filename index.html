@@ -1,41 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Syston Town Tigers U15E</title>
+    <title>Syston Town Tigers U15E - Fixtures & Results</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .widget { margin: 20px 0; border: 1px solid #ddd; padding: 15px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f5f5f5;
+        }
+        .league-info {
+            background-color: #0047ab; /* Syston Town Tigers blue */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .widget-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .widget { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            background-color: white;
+            border-radius: 5px;
+            min-height: 400px;
+        }
+        h2 { color: #0047ab; margin-top: 0; }
     </style>
 </head>
 <body>
-    <h1>🏆 Syston Town Tigers U15E 🐯</h1>
-    
-    <!-- League Table Widget -->
-    <div class="widget">
-        <h2>League Table</h2>
-        <div id="lrep441115139"></div>
+    <!-- League Header -->
+    <div class="league-info">
+        <h1>🏆 Syston Town Tigers U15E 🐯</h1>
+        <h2>Leicestershire & Rutland Youth League</h2>
+        <p>Official fixtures, results, and standings</p>
     </div>
 
-    <!-- Fixtures Widget -->
-    <div class="widget">
-        <h2>Fixtures</h2>
-        <div id="lrep592010476"></div>
-    </div>
+    <!-- Widget Container -->
+    <div class="widget-container">
+        <!-- League Table -->
+        <div class="widget">
+            <h2>League Table</h2>
+            <div id="lrep719203819"></div>
+        </div>
 
-    <!-- Results Widget -->
-    <div class="widget">
-        <h2>Results</h2>
-        <div id="lrep339988777"></div>
+        <!-- Division Fixtures -->
+        <div class="widget">
+            <h2>Division Fixtures</h2>
+            <div id="lrep923140663"></div>
+        </div>
+
+        <!-- Division Results -->
+        <div class="widget">
+            <h2>Division Results</h2>
+            <div id="lrep579327244"></div>
+        </div>
+
+        <!-- Tigers Specific Fixtures/Results -->
+        <div class="widget">
+            <h2>Syston Town Tigers Matches</h2>
+            <div id="lrep780803472"></div>
+        </div>
     </div>
 
     <!-- FA Scripts -->
     <script>
         // League Table
-        var lrcode1 = '441115139'; 
-        // Fixtures
-        var lrcode2 = '592010476'; 
-        // Results
-        var lrcode3 = '339988777'; 
+        var lrcode_table = '719203819';
+        // Division Fixtures
+        var lrcode_fixtures = '923140663';
+        // Division Results
+        var lrcode_results = '579327244';
+        // Tigers Matches
+        var lrcode_tigers = '780803472';
     </script>
     <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
 </body>
