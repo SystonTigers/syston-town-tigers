@@ -83,3 +83,11 @@
     <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
 </body>
 </html>
+<script>
+    // Reload widgets after the page finishes loading
+    window.addEventListener('load', function() {
+        if (typeof FAWidgetLoader !== 'undefined') {
+            FAWidgetLoader.loadWidgets();
+        }
+    });
+</script>
