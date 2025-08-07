@@ -1,1 +1,25 @@
+name: Scrape FA Results
 
+on:
+  schedule:
+    - cron: '0 20 * * 0,1'  # Runs at 8PM every Sunday and Monday
+  workflow_dispatch:       # Allows you to run it manually from GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests beautifulsoup4
+
+    - name: Run scraping script
+      run: python .github/scripts/scrape_fa_results.py
