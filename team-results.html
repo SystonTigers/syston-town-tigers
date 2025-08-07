@@ -3,75 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Syston Town Tigers – Team Results</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Our Results - Syston Town Tigers</title>
   <style>
     body {
+      font-family: 'Arial Black', Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
+      padding: 0;
     }
-
     header {
       background-color: #FFD700;
-      color: #000;
-      padding: 20px;
+      color: #000000;
+      padding: 1.5rem;
       text-align: center;
-      font-size: 1.8em;
-      font-weight: bold;
     }
-
     nav {
-      background-color: #222;
-      overflow: hidden;
+      background-color: #000000;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 1rem;
     }
-
     nav a {
       color: #FFD700;
-      padding: 14px 20px;
       text-decoration: none;
-      text-align: center;
       font-weight: bold;
+      font-size: 1rem;
     }
-
-    nav a:hover {
+    section {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+    }
+    h2 {
       background-color: #FFD700;
-      color: #000;
+      color: #000000;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
     }
-
-    .content {
-      padding: 20px;
+    .widget {
+      background-color: #000000;
+      border: 2px solid #FFD700;
+      border-radius: 8px;
+      padding: 1rem;
       text-align: center;
-    }
-
-    .fa-embed {
-      background-color: #111;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      display: inline-block;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #aaa;
-      padding: 20px;
     }
   </style>
 </head>
 <body>
+
   <header>
-    Syston Town Tigers U16 – 2024/25 Results
+    <h1>Syston Town Tigers U16</h1>
+    <p>Our Results</p>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="fixtures.html">Fixtures</a>
+    <a href="fixtures.html">League Fixtures</a>
     <a href="team-fixtures.html">Our Fixtures</a>
     <a href="results.html">League Results</a>
     <a href="team-results.html">Our Results</a>
@@ -82,23 +76,16 @@
     <a href="sponsors.html">Sponsors</a>
   </nav>
 
-  <div class="content">
-    <h2>Latest Results – Syston Town Tigers</h2>
-    <div class="fa-embed">
-      <div id="lrep577104452" style="width: 100%; max-width: 500px;">Data loading...
-        <a href="https://fulltime.thefa.com/index.html?divisionseason=257126161">click here</a> for Under 16 Division Four.
-        <br/><br/>
-        <a href="http://www.thefa.com/FULL-TIME">FULL-TIME Home</a>
-      </div>
-      <script type="text/javascript">
+  <section>
+    <h2>Syston Town Tigers Results</h2>
+    <div class="widget">
+      <div id="lrep577104452" style="width: 100%;">Data loading…</div>
+      <script>
         var lrcode = '577104452';
       </script>
-      <script type="text/javascript" src="https://fulltime.thefa.com/client/api/cs1.js"></script>
+      <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
     </div>
-  </div>
+  </section>
 
-  <footer>
-    &copy; 2024 Syston Town Tigers | Designed for U16s Season
-  </footer>
 </body>
 </html>
