@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Player Stats 2025/26</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-        nav {
-            background-color: #000;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: #FFD700;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
-        .header {
-            background-color: #FFD700;
-            color: #000;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .container {
-            padding: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #000;
-            color: #FFD700;
-        }
-        th, td {
-            border: 2px solid #FFD700;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #FFD700;
-            color: #000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Player Stats 2025/26</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    nav {
+      background-color: #000;
+      padding: 10px;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #FFD700;
+      text-decoration: none;
+      margin: 6px 8px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .header {
+      background-color: #FFD700;
+      color: #000;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      padding: 20px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      background-color: #000;
+      color: #FFD700;
+    }
+    th, td {
+      border: 2px solid #FFD700;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #FFD700;
+      color: #000;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="fixtures.html">League Fixtures</a>
-        <a href="team-fixtures.html">Our Fixtures</a>
-        <a href="results.html">Results</a>
-        <a href="results-2024.html">Our Results</a>
-        <a href="results-2024.html">2024/25 Archive</a>
-        <a href="table.html">League Table</a>
-        <a href="player-stats.html">Player Stats</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="sponsors.html">Sponsors</a>
-    </nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="fixtures.html">League Fixtures</a>
+    <a href="team-fixtures.html">Our Fixtures</a>
+    <a href="results.html">Results</a>
+    <a href="results-2024.html">Our Results</a>
+    <a href="results-2024.html">2024/25 Archive</a>
+    <a href="table.html">League Table</a>
+    <a href="player-stats.html">Player Stats</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="sponsors.html">Sponsors</a>
+  </nav>
 
-    <div class="header">2025/26 PLAYER STATS</div>
+  <div class="header">2025/26 PLAYER STATS</div>
 
-    <div class="container">
-        <table>
-            <tr>
-                <th>Player</th>
-                <th>Played</th>
-                <th>Goals</th>
-                <th>Assists</th>
-                <th>Yellow Cards</th>
-                <th>Red Cards</th>
-            </tr>
-            <!-- Rows will be inserted here manually or via Google Sheets integration -->
-        </table>
-    </div>
+  <div class="container">
+    <table>
+      <tr>
+        <th>Player</th>
+        <th>Played</th>
+        <th>Goals</th>
+        <th>Assists</th>
+        <th>Yellow Cards</th>
+        <th>Red Cards</th>
+      </tr>
+      <!-- Player rows go here -->
+    </table>
+  </div>
 </body>
 </html>
