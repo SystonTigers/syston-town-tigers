@@ -1,119 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Player Stats - Syston Town Tigers</title>
-  <style>
-    body {
-      font-family: 'Arial Black', Arial, sans-serif;
-      background-color: #000000;
-      color: #ffffff;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #FFD700;
-      color: #000000;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    nav {
-      background-color: #000000;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      padding: 1rem;
-    }
-    nav a {
-      color: #FFD700;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    section {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: #1a1a1a;
-      border-radius: 8px;
-    }
-    h2 {
-      background-color: #FFD700;
-      color: #000000;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-      text-transform: uppercase;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    th, td {
-      border: 1px solid #FFD700;
-      padding: 0.75rem;
-      text-align: center;
-    }
-    th {
-      background-color: #FFD700;
-      color: #000;
-    }
-    td {
-      background-color: #000;
-      color: #FFD700;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Player Stats 2025/26</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        nav {
+            background-color: #000;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #FFD700;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .header {
+            background-color: #FFD700;
+            color: #000;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #000;
+            color: #FFD700;
+        }
+        th, td {
+            border: 2px solid #FFD700;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #FFD700;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Syston Town Tigers U16</h1>
-    <p>Player Stats 2025/26</p>
-  </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="fixtures.html">League Fixtures</a>
+        <a href="team-fixtures.html">Our Fixtures</a>
+        <a href="results.html">Results</a>
+        <a href="results-2024.html">Our Results</a>
+        <a href="results-2024.html">2024/25 Archive</a>
+        <a href="table.html">League Table</a>
+        <a href="player-stats.html">Player Stats</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sponsors.html">Sponsors</a>
+    </nav>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="fixtures.html">League Fixtures</a>
-    <a href="team-fixtures.html">Our Fixtures</a>
-    <a href="results.html">League Results</a>
-    <a href="team-results.html">Our Results</a>
-    <a href="results-2024.html">2024/25 Archive</a>
-    <a href="table.html">League Table</a>
-    <a href="player-stats.html">Player Stats</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="sponsors.html">Sponsors</a>
-  </nav>
+    <div class="header">2025/26 PLAYER STATS</div>
 
-  <section>
-    <h2>2025/26 Player Stats</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Player</th>
-          <th>Played</th>
-          <th>Goals</th>
-          <th>Assists</th>
-          <th>Yellow Cards</th>
-          <th>Red Cards</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Example Player</td>
-          <td>5</td>
-          <td>3</td>
-          <td>2</td>
-          <td>1</td>
-          <td>0</td>
-        </tr>
-        <!-- Add more rows manually or link via Google Sheets later -->
-      </tbody>
-    </table>
-  </section>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Player</th>
+                <th>Played</th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>Yellow Cards</th>
+                <th>Red Cards</th>
+            </tr>
+            <!-- Rows will be inserted here manually or via Google Sheets integration -->
+        </table>
+    </div>
 </body>
 </html>
