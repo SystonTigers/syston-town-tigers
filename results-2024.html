@@ -1,41 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>2024/25 Results</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024/25 Team Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #FFD700;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        h1 {
+            background-color: #FFD700;
+            color: #000;
+            padding: 15px;
+            margin: 0;
+            text-align: center;
+        }
+        .results-container {
+            margin: 20px auto;
+            padding: 10px;
+            max-width: 700px;
+            background-color: #222;
+            border: 2px solid #FFD700;
+        }
+        .results-container iframe, .results-container div {
+            width: 100%;
+            background-color: #fff;
+            color: #000;
+        }
+        .league-header {
+            text-align: center;
+            color: #FFD700;
+            margin-top: 40px;
+        }
+        .table-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 95%;
+            border: 3px solid #FFD700;
+        }
+    </style>
 </head>
 <body>
-  <header>
     <h1>2024/25 Team Results</h1>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="fixtures.html">Fixtures</a>
-      <a href="results.html">Results</a>
-      <a href="results-2024.html">Archive</a>
-      <a href="table.html">League Table</a>
-      <a href="player-stats.html">Player Stats</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="sponsors.html">Sponsors</a>
+        <a href="index.html">Home</a>
+        <a href="fixtures.html">Fixtures</a>
+        <a href="results.html">Results</a>
+        <a href="results-2024.html">Archive</a>
+        <a href="table.html">League Table</a>
+        <a href="player-stats.html">Player Stats</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sponsors.html">Sponsors</a>
     </nav>
-  </header>
 
-  <main>
-    <section class="fa-results">
-      <div id="lrep99477345" style="width: 100%;">Data loading…
-        <a href="https://fulltime.thefa.com/index.html?divisionseason=895836158">Click here for Results</a>
-      </div>
-      <script type="text/javascript">
-        var lrcode = '99477345';
-      </script>
-      <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
-    </section>
+    <div class="results-container">
+        <div id="lrep99477345">Data loading...
+            <a href="https://fulltime.thefa.com/index.html?divisionseason=895836158">Click here for Results</a>
+        </div>
+        <script type="text/javascript">
+            var lrcode = '99477345';
+        </script>
+        <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
+    </div>
 
-    <section class="league-table-image">
-      <h2>Final League Table 2024/25</h2>
-      <img src="League-table-2024.jpg" alt="2024/25 Final League Table" style="max-width:100%; border: 3px solid yellow; border-radius: 8px; margin-top: 20px;" />
-    </section>
-  </main>
+    <h2 class="league-header">Final League Table 2024/25</h2>
+    <img src="League-table-2024.jpg" alt="Final League Table 2024/25" class="table-image">
 </body>
 </html>
