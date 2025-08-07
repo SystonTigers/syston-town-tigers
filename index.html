@@ -6,21 +6,22 @@
   <title>Syston Town Tigers U16</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial Black', Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
     }
 
     header {
-      background-color: #003366;
-      color: white;
+      background-color: #FFD700;
+      color: #000000;
       padding: 1.5rem;
       text-align: center;
     }
 
     nav {
-      background: #0055a5;
+      background: #000000;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -29,27 +30,35 @@
     }
 
     nav a {
-      color: white;
+      color: #FFD700;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1rem;
     }
 
     section {
-      padding: 2rem;
       max-width: 960px;
-      margin: auto;
-      background: white;
-      margin-bottom: 2rem;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #1a1a1a;
+      border-radius: 8px;
     }
 
     h2 {
-      color: #003366;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 0.5rem;
+      background-color: #FFD700;
+      color: #000000;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
     }
 
     .snippet {
-      margin: 1rem 0;
+      margin: 1.5rem 0;
+      background-color: #000000;
+      border: 2px solid #FFD700;
+      border-radius: 8px;
+      padding: 1rem;
     }
   </style>
 </head>
@@ -57,60 +66,52 @@
 
   <header>
     <h1>Syston Town Tigers U16</h1>
-    <p>Fixtures, Results, and League Table</p>
+    <p>Welcome to the official team hub</p>
   </header>
 
   <nav>
-  <a href="index.html">Home</a>
-  <a href="fixtures.html">Fixtures</a>
-  <a href="results.html">Results</a>
-  <a href="table.html">League Table</a>
-  <a href="player-stats.html">Player Stats</a>
+    <a href="index.html">Home</a>
+    <a href="fixtures.html">League Fixtures</a>
+    <a href="team-fixtures.html">Our Fixtures</a>
+    <a href="results.html">League Results</a>
+    <a href="team-results.html">Our Results</a>
+    <a href="table.html">League Table</a>
+    <a href="player-stats.html">Player Stats</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="sponsors.html">Sponsors</a>
   </nav>
 
-  <section id="intro">
+  <section>
     <h2>Welcome</h2>
-    <p>Follow Syston Town Tigers U16 this season. Updates will appear below including fixtures, results, and the latest league table.</p>
+    <p>This is the official page for Syston Town Tigers U16 — here you'll find all our match details, league info, and updates.</p>
   </section>
 
-  <!-- League Table -->
-  <section id="league">
+  <section>
     <h2>League Table</h2>
-    <div id="lrep358849423" style="width: 350px;">Data loading…</div>
-    <script>
-      var lrcode = '358849423';
-      document.write('<script src="https://fulltime.thefa.com/client/api/cs1.js"><\/script>');
-    </script>
+    <div class="snippet" id="lrep358849423">Data loading…</div>
+    <script> var lrcode = '358849423'; </script>
+    <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
   </section>
 
-  <!-- Recent Results -->
-  <section id="results">
-    <h2>Recent Results (7 Days)</h2>
-    <div id="lrep141961611" style="width: 350px;">Data loading…</div>
-    <script>
-      var lrcode = '141961611';
-      document.write('<script src="https://fulltime.thefa.com/client/api/cs1.js"><\/script>');
-    </script>
+  <section>
+    <h2>Recent Results (League)</h2>
+    <div class="snippet" id="lrep141961611">Data loading…</div>
+    <script> var lrcode = '141961611'; </script>
+    <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
   </section>
 
-  <!-- Upcoming Fixtures -->
-  <section id="fixtures">
-    <h2>Upcoming Fixtures (7 Days)</h2>
-    <div id="lrep455713059" style="width: 350px;">Data loading…</div>
-    <script>
-      var lrcode = '455713059';
-      document.write('<script src="https://fulltime.thefa.com/client/api/cs1.js"><\/script>');
-    </script>
+  <section>
+    <h2>Upcoming Fixtures (League)</h2>
+    <div class="snippet" id="lrep455713059">Data loading…</div>
+    <script> var lrcode = '455713059'; </script>
+    <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
   </section>
 
-  <!-- Syston Team Fixtures & Results -->
-  <section id="team">
-    <h2>Syston Town Fixtures & Results</h2>
-    <div id="lrep577104452" style="width: 350px;">Data loading…</div>
-    <script>
-      var lrcode = '577104452';
-      document.write('<script src="https://fulltime.thefa.com/client/api/cs1.js"><\/script>');
-    </script>
+  <section>
+    <h2>Our Fixtures & Results</h2>
+    <div class="snippet" id="lrep577104452">Data loading…</div>
+    <script> var lrcode = '577104452'; </script>
+    <script src="https://fulltime.thefa.com/client/api/cs1.js"></script>
   </section>
 
 </body>
