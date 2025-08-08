@@ -1,1 +1,1 @@
-live match updates will appear here during games!
+? 8' ? GOAL! Syston Tigers 1-0 foxes ? oakley (assist: riley)
