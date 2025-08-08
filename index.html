@@ -3,114 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Syston Town Tigers</title>
+  <title>Syston Town Tigers U16</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: url('images/team-badge.png') no-repeat center center fixed;
-      background-size: 40%;
-      background-color: black;
-      color: yellow;
+      background-color: #000;
+      font-family: 'Arial Black', sans-serif;
+      color: #fff;
+      background-image: url('images/syston-badge-bg.png');
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 1;
     }
 
     header {
-      background-color: yellow;
-      color: black;
+      background-color: #FFD700;
+      padding: 20px;
       text-align: center;
-      padding: 1.5rem 0;
+      color: #000;
     }
 
     nav {
-      background: #222;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 1rem 0;
+      background-color: #000;
+      text-align: center;
+      padding: 10px 0;
     }
 
     nav a {
-      color: yellow;
+      color: #FFD700;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1rem;
     }
 
     .section {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem 1rem;
+      background-color: #1a1a1a;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 900px;
     }
 
-    .card {
-      background: rgba(255, 255, 0, 0.9);
-      padding: 1rem;
-      margin-bottom: 2rem;
-      color: black;
-      border-radius: 8px;
+    .section h2 {
+      color: #FFD700;
+      margin-bottom: 10px;
     }
 
-    .card h2 {
-      margin-top: 0;
+    .live-update {
+      white-space: pre-wrap;
+      font-family: monospace;
+      padding: 10px;
+      background-color: #000;
+      border: 2px solid #FFD700;
+      border-radius: 5px;
     }
 
-    .team-photo, .sponsor-logo {
-      max-width: 100%;
-      border-radius: 8px;
+    .countdown {
+      font-size: 2rem;
+      color: #FFD700;
     }
 
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      background: white;
+    .centered {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .team-photo,
+    .sponsor-badge {
+      max-width: 80%;
+      margin: 10px 0;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Syston Town Tigers</h1>
+    <h1>Syston Town Tigers U16</h1>
     <p>2024/25 Season Hub</p>
   </header>
 
   <nav>
-    <a href="fixtures.html">Fixtures</a>
-    <a href="results.html">Results</a>
-    <a href="league-table.html">League Table</a>
+    <a href="index.html">Home</a>
+    <a href="league-fixtures.html">League Fixtures</a>
+    <a href="team-fixtures.html">Our Fixtures</a>
+    <a href="league-results.html">League Results</a>
+    <a href="team-results.html">Our Results</a>
+    <a href="table.html">League Table</a>
     <a href="player-stats.html">Player Stats</a>
     <a href="gallery.html">Gallery</a>
     <a href="sponsors.html">Sponsors</a>
-    <a href="archive.html">Archive</a>
+    <a href="archive.html">2024/25 Archive</a>
   </nav>
 
   <div class="section">
-    <div class="card">
-      <h2>📢 Live Match Updates</h2>
-      <iframe src="live-update.txt"></iframe>
-    </div>
-
-    <div class="card">
-      <h2>📊 League Table</h2>
-      <iframe src="table.html"></iframe>
-    </div>
-
-    <div class="card">
-      <h2>🕒 Next Fixture Countdown</h2>
-      <iframe src="countdown.html"></iframe>
-    </div>
-
-    <div class="card">
-      <h2>📸 Team Photo</h2>
-      <img src="images/team-photo.jpg" alt="Team Photo" class="team-photo" />
-    </div>
-
-    <div class="card">
-      <h2>🤝 Sponsors</h2>
-      <img src="images/sponsor-logo.png" alt="Sponsor Logo" class="sponsor-logo" />
-    </div>
+    <h2>📣 Live Match Updates</h2>
+    <div id="live-update" class="live-update">Loading...</div>
   </div>
 
+  <div class="section centered">
+    <h2>📆 Next Fixture Countdown</h2>
+    <div class="countdown" id="countdown">TBC</div>
+  </div>
+
+  <div class="section">
+    <h2>🏆 League Table</h2>
+    <iframe src="table.html" width="100%" height="350px" style="border:none;"></iframe>
+  </div>
+
+  <div class="section centered">
+    <h2>📸 Team Photo</h2>
+    <img src="images/team-photo.jpg" alt="Team Photo" class="team-photo" />
+  </div>
+
+  <div class="section centered">
+    <h2>🎗️ Sponsor</h2>
+    <img src="images/sponsor-badge.jpg" alt="Sponsor Badge" class="sponsor-badge" />
+  </div>
+
+  <script>
+    // Live Match Update – Auto-hide after 90 mins
+    fetch('live-update.txt')
+      .then(response => response.text())
+      .then(text => {
+        const [timestamp, ...message] = text.split('|');
+        const time = new Date(timestamp);
+        const now = new Date();
+        const diff = (now - time) / 1000 / 60; // minutes
+        if (diff <= 90) {
+          document.getElementById('live-update').textContent = message.join('|').trim();
+        } else {
+          document.getElementById('live-update').textContent = 'No live updates.';
+        }
+      })
+      .catch(() => {
+        document.getElementById('live-update').textContent = 'No update available.';
+      });
+
+    // Countdown Timer (Update date/time here)
+    const matchDate = new Date("2025-08-10T10:30:00");
+    const countdown = document.getElementById("countdown");
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const gap = matchDate - now;
+
+      if (gap < 0) {
+        countdown.textContent = "Match in progress or complete!";
+        return;
+      }
+
+      const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+
+      countdown.textContent = `${days}d ${hours}h ${minutes}m`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
 </body>
 </html>
