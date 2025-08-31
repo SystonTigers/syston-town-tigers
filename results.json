@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "date": "2025-08-01",
+    "matchType": "League",
+    "home": "Syston Town Tigers",
+    "away": "Anstey Nomads",
+    "hs": 2,
+    "as": 1
+  }
+]
