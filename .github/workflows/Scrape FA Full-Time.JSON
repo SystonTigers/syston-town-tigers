@@ -1,0 +1,60 @@
+on:
+
+  workflow_dispatch: {}
+
+  schedule:
+
+    - cron: "0 * * * *"   # hourly on the hour
+
+
+permissions:
+
+  contents: write
+
+
+jobs:
+
+  scrape:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Check out
+
+        uses: actions/checkout@v4
+
+
+      - name: Setup Node
+
+        uses: actions/setup-node@v4
+
+        with:
+
+          node-version: 20
+
+
+      - name: Install deps
+
+        run: npm ci || npm i
+
+
+      - name: Run scraper
+
+        run: npm run scrape
+
+
+      - name: Commit changes (if any)
+
+        uses: stefanzweifel/git-auto-commit-action@v5
+
+        with:
+
+          commit_message: "chore: refresh fixtures/results from FA Full-Time"
+
+          file_pattern: |
+
+            fixtures.json
+
+            results.json
+
