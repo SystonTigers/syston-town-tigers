@@ -1,0 +1,11 @@
+{
+  "name": "syston-fulltime-scraper",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "puppeteer": "^22.10.0"
+  },
+  "scripts": {
+    "scrape": "node scripts/scrape_fulltime.mjs"
+  }
+}
