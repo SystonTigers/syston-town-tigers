@@ -1,25 +1,42 @@
 name: Scrape FA Results
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 20 * * 0,1'  # Runs at 8PM every Sunday and Monday
-  workflow_dispatch:       # Allows you to run it manually from GitHub
+    - cron: '*/30 * * * *'   # every 30 minutes (optional; keep or change)
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Check out
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: pip install requests beautifulsoup4
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
 
-    - name: Run scraping script
-      run: python .github/scripts/scrape_fa_results.py
+      - name: Run scraper
+        env:
+          FA_FIXTURES_URL: ${{ secrets.FA_FIXTURES_URL }}
+          FA_RESULTS_URL:  ${{ secrets.FA_RESULTS_URL }}
+        run: python .github/scripts/scrape_fa_results.py
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fixtures.json results.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Update fixtures/results from FA"
+            git push
+          fi
