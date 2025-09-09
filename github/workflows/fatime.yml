@@ -1,0 +1,276 @@
+import os, re, json, time
+from datetime import datetime
+import requests
+from bs4 import BeautifulSoup
+
+SESSION = requests.Session()
+SESSION.headers.update({
+    "User-Agent": "Mozilla/5.0 (compatible; SystonTigersBot/1.0; +https://github.com/SystonTigers/syston-town-tigers)"
+})
+
+def fetch(url, tries=3, timeout=25):
+    for i in range(tries):
+        try:
+            r = SESSION.get(url, timeout=timeout)
+            if r.status_code == 200 and r.text.strip():
+                return r.text
+            time.sleep(1.5 * (i+1))
+        except requests.RequestException:
+            time.sleep(1.5 * (i+1))
+    raise RuntimeError(f"Failed to fetch: {url}")
+
+def clean_text(s):
+    return re.sub(r"\s+", " ", (s or "").strip())
+
+def gb_ymd(s):
+    """
+    Accepts 'dd/MM/yyyy', 'dd-MM-yyyy', or already ISO; returns yyyy-MM-dd or ''.
+    """
+    s = (s or "").strip()
+    if not s:
+        return ""
+    # already yyyy-MM-dd
+    if re.match(r"^\d{4}-\d{2}-\d{2}$", s):
+        return s
+    m = re.match(r"^(\d{2})[/-](\d{2})[/-](\d{4})$", s)
+    if m:
+        dd, mm, yyyy = m.groups()
+        try:
+            dt = datetime(int(yyyy), int(mm), int(dd))
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            return ""
+    # final fallback: try native parse
+    try:
+        dt = datetime.fromisoformat(s)
+        return dt.strftime("%Y-%m-%d")
+    except Exception:
+        return ""
+
+def parse_fixtures(html):
+    """
+    Returns list of {date,type,home,away,venue,ko}
+    We are lenient: find the main table, map columns by header names or position.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find("table")
+    if not table:
+        return []
+
+    # Build header map
+    head = table.find("thead") or table.find("tr")
+    headers = []
+    if head:
+        hrow = head.find_all("tr")[0] if head.name == "thead" else head
+        for th in hrow.find_all(["th","td"]):
+            headers.append(clean_text(th.get_text()).lower())
+
+    rows = []
+    for tr in table.find_all("tr"):
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        cols = [clean_text(td.get_text()) for td in tds]
+
+        # Heuristic column mapping
+        # Try by header labels first
+        def get_col(name, default_idx):
+            idx = -1
+            for i,h in enumerate(headers):
+                if name in h:
+                    idx = i
+                    break
+            if idx == -1:
+                idx = default_idx if default_idx < len(cols) else -1
+            return cols[idx] if idx != -1 else ""
+
+        # Common layouts: Date, KO, Home, Away, Venue, Type
+        date  = get_col("date",   0)
+        ko    = get_col("ko",     1)
+        home  = get_col("home",   2)
+        away  = get_col("away",   3)
+        venue = get_col("venue",  4)
+        mtype = get_col("type",   5)  # sometimes blank; we can default later
+
+        if not home or not away:
+            continue
+
+        rows.append({
+            "date": gb_ymd(date) or gb_ymd(re.sub(r"\b(\d{2}:\d{2}).*$","",date)),  # strip times if embedded
+            "type": mtype or "League",
+            "home": home,
+            "away": away,
+            "venue": venue,
+            "ko": ko
+        })
+    return rows
+
+def parse_results(html):
+    """
+    Returns list of {date,type,home,away,homeScore,awayScore,venue,ko,notes,status}
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find("table")
+    if not table:
+        return []
+
+    head = table.find("thead") or table.find("tr")
+    headers = []
+    if head:
+        hrow = head.find_all("tr")[0] if head.name == "thead" else head
+        for th in hrow.find_all(["th","td"]):
+            headers.append(clean_text(th.get_text()).lower())
+
+    rows = []
+    for tr in table.find_all("tr"):
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        cols = [clean_text(td.get_text()) for td in tds]
+
+        def get_col(name, default_idx):
+            idx = -1
+            for i,h in enumerate(headers):
+                if name in h:
+                    idx = i
+                    break
+            if idx == -1:
+                idx = default_idx if default_idx < len(cols) else -1
+            return cols[idx] if idx != -1 else ""
+
+        date  = get_col("date",   0)
+        ko    = get_col("ko",     1)
+        home  = get_col("home",   2)
+        score = get_col("score",  3)
+        away  = get_col("away",   4)
+        venue = get_col("venue",  5)
+        mtype = get_col("type",   6)
+
+        hs, as_ = "", ""
+        m = re.match(r"^\s*(\d+)\s*-\s*(\d+)\s*$", score or "")
+        if m:
+            hs, as_ = m.group(1), m.group(2)
+
+        if not home or not away:
+            continue
+
+        rows.append({
+            "date": gb_ymd(date) or gb_ymd(re.sub(r"\b(\d{2}:\d{2}).*$","",date)),
+            "type": mtype or "League",
+            "home": home,
+            "away": away,
+            "homeScore": hs,
+            "awayScore": as_,
+            "venue": venue,
+            "ko": ko,
+            "notes": "",
+            "status": "FT" if hs != "" and as_ != "" else ""
+        })
+    return rows
+
+def parse_table(html):
+    """
+    Returns list of rows with standard fields for a league table backup.
+    { position, team, played, won, drawn, lost, gf, ga, gd, points }
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find("table")
+    if not table:
+        return []
+
+    head = table.find("thead") or table.find("tr")
+    headers = []
+    if head:
+        hrow = head.find_all("tr")[0] if head.name == "thead" else head
+        for th in hrow.find_all(["th","td"]):
+            headers.append(clean_text(th.get_text()).lower())
+
+    rows = []
+    for tr in table.find_all("tr"):
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        cols = [clean_text(td.get_text()) for td in tds]
+
+        def get_num(v):
+            m = re.search(r"-?\d+", v or "")
+            return int(m.group(0)) if m else 0
+
+        def get_col(name, default_idx):
+            idx = -1
+            for i,h in enumerate(headers):
+                if name in h:
+                    idx = i
+                    break
+            if idx == -1:
+                idx = default_idx if default_idx < len(cols) else -1
+            return cols[idx] if idx != -1 else ""
+
+        rows.append({
+            "position": get_num(get_col("pos", 0)),
+            "team":     get_col("team", 1),
+            "played":   get_num(get_col("p", 2)),
+            "won":      get_num(get_col("w", 3)),
+            "drawn":    get_num(get_col("d", 4)),
+            "lost":     get_num(get_col("l", 5)),
+            "gf":       get_num(get_col("f", 6)),
+            "ga":       get_num(get_col("a", 7)),
+            "gd":       get_num(get_col("gd", 8)),
+            "points":   get_num(get_col("pts", 9)),
+        })
+    return rows
+
+def main():
+    FIXTURES_LRCODE = os.environ.get("FA_FIXTURES_LRCODE", "").strip()
+    RESULTS_LRCODE  = os.environ.get("FA_RESULTS_LRCODE", "").strip()
+    TABLE_LRCODE    = os.environ.get("FA_TABLE_LRCODE", "").strip()
+
+    if not FIXTURES_LRCODE or not RESULTS_LRCODE:
+        raise SystemExit("Missing FA_*_LRCODE values in env.")
+
+    # These endpoints are what the snippet ultimately calls
+    fixtures_url = f"https://fulltime.thefa.com/display/DisplayFixtureList.do?divisionseason={FIXTURES_LRCODE}"
+    results_url  = f"https://fulltime.thefa.com/display/DisplayResults.do?divisionseason={RESULTS_LRCODE}"
+    table_url    = f"https://fulltime.thefa.com/display/DisplayLeagueTable.do?divisionseason={TABLE_LRCODE}" if TABLE_LRCODE else None
+
+    f_html = fetch(fixtures_url)
+    r_html = fetch(results_url)
+    t_html = fetch(table_url) if table_url else ""
+
+    fixtures = parse_fixtures(f_html)
+    results  = parse_results(r_html)
+    table    = parse_table(t_html) if t_html else []
+
+    # de-dupe fixtures by (date,home,away)
+    seen = set()
+    f_out = []
+    for it in fixtures:
+        key = (it["date"], it["home"], it["away"])
+        if key in seen: 
+            continue
+        seen.add(key)
+        f_out.append(it)
+
+    # de-dupe results by (date,home,away,homeScore,awayScore)
+    seen = set()
+    r_out = []
+    for it in results:
+        key = (it["date"], it["home"], it["away"], it["homeScore"], it["awayScore"])
+        if key in seen:
+            continue
+        seen.add(key)
+        r_out.append(it)
+
+    with open("fixtures.json", "w", encoding="utf-8") as f:
+        json.dump(f_out, f, ensure_ascii=False, indent=2)
+    with open("results.json", "w", encoding="utf-8") as f:
+        json.dump(r_out, f, ensure_ascii=False, indent=2)
+    with open("table.json", "w", encoding="utf-8") as f:
+        json.dump(table, f, ensure_ascii=False, indent=2)
+
+    print(f"fixtures.json: {len(f_out)} rows")
+    print(f"results.json:  {len(r_out)} rows")
+    print(f"table.json:    {len(table)} rows")
+
+if __name__ == "__main__":
+    main()
