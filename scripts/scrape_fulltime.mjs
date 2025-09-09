@@ -8,7 +8,7 @@ const TEAM_RESULTS_URL  = `${BASE}/team-results.html`;
 
 // The FA widget usually renders into a DIV with id "lrep" + league/club code.
 // Your pages use lrcode = '577104452', so we watch this container:
-const WIDGET_SELECTOR = "#lrep577104452";
+const WIDGET_SELECTOR = "#lrep455713059";
 
 // Wait for the widget to render something table-ish
 async function waitForWidget(page) {
